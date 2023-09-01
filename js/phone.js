@@ -24,7 +24,7 @@ const displayPhones = (phones, isShowAll) => {
         phones = phones.splice(0, 12);
     }
     phones.forEach(phone => {
-        // console.log(phone);
+        console.log(phone);
         //2. create a div
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card p-4 bg-gray-100 shadow-1`;
@@ -34,8 +34,8 @@ const displayPhones = (phones, isShowAll) => {
                     <div class="card-body">
                         <h2 class="card-title">${phone.phone_name}</h2>
                         <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div class="card-actions justify-end">
-                            <button class="btn btn-primary">Buy Now</button>
+                        <div class="card-actions justify-center">
+                            <button onclick="handleShowDetails('${phone.slug}')" class="btn btn-primary">Show Details</button>
                         </div>
                     </div>`
         phoneContainer.appendChild(phoneCard);
@@ -43,6 +43,14 @@ const displayPhones = (phones, isShowAll) => {
     // hide Loading Spinner
     troggleSpinner(false)
 
+}
+// 
+const handleShowDetails = async (id) => {
+    console.log('Show details', id);
+    // load single phone Data
+    const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+    const data = await res.json();
+    console.log(data);
 }
 // Handle Search Button
 const handleSearch = (isShowAll) => {
