@@ -1,10 +1,10 @@
-const loadPhone = async (searchText) => {
+const loadPhone = async (searchText, isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await res.json();
     const phones = data.data;
-    displayPhones(phones);
+    displayPhones(phones, isShowAll);
 }
-const displayPhones = phones => {
+const displayPhones = (phones, isShowAll) => {
     // console.log(phones);
     //1. set where we set element
     const phoneContainer = document.getElementById('phone-container');
@@ -19,9 +19,12 @@ const displayPhones = phones => {
     else {
         showallcontainer.classList.add('hidden')
     }
-    phones = phones.splice(0, 12);
+    console.log('Is Show all', isShowAll)
+    if (!isShowAll) {
+        phones = phones.splice(0, 12);
+    }
     phones.forEach(phone => {
-        console.log(phone);
+        // console.log(phone);
         //2. create a div
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card p-4 bg-gray-100 shadow-1`;
@@ -42,20 +45,20 @@ const displayPhones = phones => {
 
 }
 // Handle Search Button
-const handleSearch = () => {
+const handleSearch = (isShowAll) => {
     troggleSpinner(true)
     const searchField = document.getElementById("search-field");
     const searchText = searchField.value;
-    console.log(searchText);
-    loadPhone(searchText)
+    // console.log(searchText);
+    loadPhone(searchText, isShowAll)
 }
 // another handle search button
-const handleSearch2 = () => {
-    troggleSpinner(true)
-    const searchField = document.getElementById("search-field2")
-    const searchText = searchField.value;
-    loadPhone(searchText);
-}
+// const handleSearch2 = () => {
+//     troggleSpinner(true)
+//     const searchField = document.getElementById("search-field2")
+//     const searchText = searchField.value;
+//     loadPhone(searchText);
+// }
 const troggleSpinner = (isLoading) => {
     const loadingSpinner = document.getElementById('loading-spinner');
     if (isLoading) {
@@ -66,4 +69,7 @@ const troggleSpinner = (isLoading) => {
     }
 
 }
+// Handle show all
+const handleShowAlll = () =>
+    handleSearch(true);
 // loadPhone();
