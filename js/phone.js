@@ -37,10 +37,13 @@ const displayPhones = phones => {
                     </div>`
         phoneContainer.appendChild(phoneCard);
     });
+    // hide Loading Spinner
+    troggleSpinner(false)
 
 }
 // Handle Search Button
 const handleSearch = () => {
+    troggleSpinner(true)
     const searchField = document.getElementById("search-field");
     const searchText = searchField.value;
     console.log(searchText);
@@ -48,8 +51,19 @@ const handleSearch = () => {
 }
 // another handle search button
 const handleSearch2 = () => {
+    troggleSpinner(true)
     const searchField = document.getElementById("search-field2")
     const searchText = searchField.value;
     loadPhone(searchText);
+}
+const troggleSpinner = (isLoading) => {
+    const loadingSpinner = document.getElementById('loading-spinner');
+    if (isLoading) {
+        loadingSpinner.classList.remove('hidden');
+    }
+    else {
+        loadingSpinner.classList.add('hidden');
+    }
+
 }
 // loadPhone();
