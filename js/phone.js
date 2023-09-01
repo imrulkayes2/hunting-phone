@@ -10,6 +10,16 @@ const displayPhones = phones => {
     const phoneContainer = document.getElementById('phone-container');
     // Clear phone contsiner card before adding new cards.
     phoneContainer.textContent = '';
+    // display show all button if there are more then 12 phones
+    // Display only first 5 phones
+    const showallcontainer = document.getElementById('show-all-container');
+    if (phones.length >= 12) {
+        showallcontainer.classList.remove('hidden');
+    }
+    else {
+        showallcontainer.classList.add('hidden')
+    }
+    phones = phones.splice(0, 12);
     phones.forEach(phone => {
         console.log(phone);
         //2. create a div
